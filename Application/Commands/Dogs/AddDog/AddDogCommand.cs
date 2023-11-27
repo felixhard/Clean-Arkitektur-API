@@ -1,9 +1,9 @@
-﻿using Application.Dtos;
-using Domain.Models;
+﻿using Application.Dtos.DogDto;
+using Domain.Models.Dogs;
 using MediatR;
 
-namespace Application.Commands.Dogs
-{
+namespace Application.Commands.Dogs.AddDog
+{ 
     public class AddDogCommand : IRequest<Dog>
     {
         public AddDogCommand(DogDto newDog)
@@ -13,4 +13,5 @@ namespace Application.Commands.Dogs
 
         public DogDto NewDog { get; }
     }
+
 }

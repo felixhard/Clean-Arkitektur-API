@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Domain.Models.Dogs;
 
 namespace Infrastructure.Database
 {
