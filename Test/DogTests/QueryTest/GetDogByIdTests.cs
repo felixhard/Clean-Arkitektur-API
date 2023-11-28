@@ -29,8 +29,9 @@ namespace Test.DogTests.QueryTest
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(dogId));
+
         }
 
         [Test]
@@ -45,7 +46,7 @@ namespace Test.DogTests.QueryTest
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.IsNull(result);
+            Assert.That(result == null);
             //Test comment
         }
     }
