@@ -58,10 +58,10 @@ namespace API.Controllers.CatsController
         // IMPLEMENT DELETE !!!
 
         [HttpDelete]
-        [Route("deleteCat/{deletedCatID}")]
-        public async Task<IActionResult> DeleteCat(Guid deletedCatID)
+        [Route("deleteCat/{deletedCatId}")]
+        public async Task<IActionResult> DeleteCat(Guid deletedCatId)
         {
-            return Ok(await _mediator.Send(new DeleteCatByIdCommand(deletedCatID)));
+            return Ok(await _mediator.Send(new DeleteCatByIdCommand(deletedCatId)));
         }
 
 
