@@ -22,7 +22,7 @@ namespace API.Controllers.DogsController
             _mediator = mediator;
         }
 
-        // Get all dogs from database
+        // Get all dogs from database (API Endpoint)
         [HttpGet]
         [Route("getAllDogs")]
         public async Task<IActionResult> GetAllDogs()

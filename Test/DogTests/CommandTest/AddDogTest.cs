@@ -1,8 +1,7 @@
 ﻿using Infrastructure.Database;
-using Application.Commands.Dogs.AddDog;
 using Application.Dtos.DogDto;
 using Application.Queries.Dogs.GetById;
-using Application.Commands.Dogs;
+using Application.Commands.Dogs.AddDog;
 
 namespace Test.DogTests.CommandTest
 {
@@ -10,7 +9,6 @@ namespace Test.DogTests.CommandTest
     {
         private MockDatabase _mockDatabase;
         private GetDogByIdQueryHandler _handler;
-        //Fortstätt här imorgon.......................................
         private AddDogCommandHandler _AddDogCommandHandler;
 
         [SetUp]
@@ -19,11 +17,11 @@ namespace Test.DogTests.CommandTest
             // Initialize the handler and mock database before each test
             _mockDatabase = new MockDatabase();
             _handler = new GetDogByIdQueryHandler(_mockDatabase);
-            _AddDogCommandHandler = AddDogCommandHandler(_mockDatabase);
+            _AddDogCommandHandler = new AddDogCommandHandler(_mockDatabase);
         }
-        
+
         [Test]
-        public async Task Dog_Add_Test()
+        public async Task Test_To_Add_Dog()
         {
             // Arrange
             DogDto dogDto = new DogDto { Name = "AddedDogTestName" };
@@ -34,7 +32,7 @@ namespace Test.DogTests.CommandTest
             var result = await _AddDogCommandHandler.Handle(query, CancellationToken.None);
 
             // Assert
-            Assert.NotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Name, Is.EqualTo(dogDto.Name));
         }
 
