@@ -1,6 +1,8 @@
 ﻿using Application.Commands.Dogs;
+using Application.Commands.Dogs.AddDog;
+using Application.Commands.Dogs.DeleteDog;
 using Application.Commands.Dogs.UpdateDog;
-using Application.Dtos;
+using Application.Dtos.AnimalDtos.DogDto;
 using Application.Queries.Dogs.GetAll;
 using Application.Queries.Dogs.GetById;
 using MediatR;
@@ -20,7 +22,7 @@ namespace API.Controllers.DogsController
             _mediator = mediator;
         }
 
-        // Get all dogs from database
+        // Get all dogs from database (API Endpoint)
         [HttpGet]
         [Route("getAllDogs")]
         public async Task<IActionResult> GetAllDogs()
@@ -54,6 +56,15 @@ namespace API.Controllers.DogsController
         }
 
         // IMPLEMENT DELETE !!!
+
+        [HttpDelete]
+        [Route("deleteDog/{deletedDogId}")]
+        public async Task<IActionResult> DeleteDog(Guid deletedDogId)
+        {
+            return Ok(await _mediator.Send(new DeleteDogByIdCommand(deletedDogId)));
+        }
+
+
 
     }
 }

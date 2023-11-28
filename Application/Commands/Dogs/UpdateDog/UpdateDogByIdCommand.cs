@@ -1,10 +1,10 @@
-﻿using Application.Dtos;
-using Domain.Models;
+﻿using Application.Dtos.AnimalDtos.DogDto;
+using Domain.Models.Dogs;
 using MediatR;
 
 namespace Application.Commands.Dogs.UpdateDog
 {
-    public class UpdateDogByIdCommand: IRequest<Dog>
+    public class UpdateDogByIdCommand : IRequest<Dog>
     {
         public UpdateDogByIdCommand(DogDto updatedDog, Guid id)
         {

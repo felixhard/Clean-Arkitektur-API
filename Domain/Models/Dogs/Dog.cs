@@ -1,8 +1,8 @@
 ﻿using Domain.Models.Animal;
 
-namespace Domain.Models
+namespace Domain.Models.Dogs
 {
-    public class Dog: AnimalModel
+    public class Dog : AnimalModel
     {
         public string Bark()
         {

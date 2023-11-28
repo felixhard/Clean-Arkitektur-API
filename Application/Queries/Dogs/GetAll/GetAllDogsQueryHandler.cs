@@ -1,11 +1,11 @@
 ﻿using Application.Queries.Dogs.GetAll;
-using Domain.Models;
+using Domain.Models.Dogs;
 using Infrastructure.Database;
 using MediatR;
 
 namespace Application.Queries.Dogs
 {
-    internal sealed class GetAllDogsQueryHandler : IRequestHandler<GetAllDogsQuery, List<Dog>>
+    internal class GetAllDogsQueryHandler : IRequestHandler<GetAllDogsQuery, List<Dog>>
     {
         private readonly MockDatabase _mockDatabase;
 

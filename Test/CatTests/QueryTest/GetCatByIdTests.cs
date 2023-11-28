@@ -1,12 +1,12 @@
-﻿using Application.Queries.Dogs.GetById;
+﻿using Application.Queries.Cats.GetById;
 using Infrastructure.Database;
 
-namespace Test.DogTests.QueryTest
+namespace Test.CatTests.QueryTest
 {
     [TestFixture]
-    public class GetDogByIdTests
+    public class GetCatByIdTests
     {
-        private GetDogByIdQueryHandler _handler;
+        private GetCatByIdQueryHandler _handler;
         private MockDatabase _mockDatabase;
 
         [SetUp]
@@ -14,23 +14,23 @@ namespace Test.DogTests.QueryTest
         {
             // Initialize the handler and mock database before each test
             _mockDatabase = new MockDatabase();
-            _handler = new GetDogByIdQueryHandler(_mockDatabase);
+            _handler = new GetCatByIdQueryHandler(_mockDatabase);
         }
 
         [Test]
-        public async Task Handle_ValidId_ReturnsCorrectDog()
+        public async Task Handle_ValidId_ReturnsCorrectCat()
         {
             // Arrange
-            var dogId = new Guid("12345678-1234-5678-1234-567812345678");
+            var catId = new Guid("00045678-1234-5678-1234-567812345678");
 
-            var query = new GetDogByIdQuery(dogId);
+            var query = new GetCatByIdQuery(catId);
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(dogId));
+            Assert.That(result.Id, Is.EqualTo(catId));
 
         }
 
@@ -38,9 +38,9 @@ namespace Test.DogTests.QueryTest
         public async Task Handle_InvalidId_ReturnsNull()
         {
             // Arrange
-            var invalidDogId = Guid.NewGuid();
+            var invalidCatId = Guid.NewGuid();
 
-            var query = new GetDogByIdQuery(invalidDogId);
+            var query = new GetCatByIdQuery(invalidCatId);
 
             // Act
             var result = await _handler.Handle(query, CancellationToken.None);
