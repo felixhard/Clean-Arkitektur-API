@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Database;
-using Application.Dtos.DogDto;
 using Application.Queries.Dogs.GetById;
 using Application.Commands.Dogs.AddDog;
+using Application.Dtos.AnimalDtos.DogDto;
 
 namespace Test.DogTests.CommandTest
 {
