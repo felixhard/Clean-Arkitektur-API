@@ -5,11 +5,11 @@ namespace Application.Commands.Dogs.DeleteDog
 {
     public class DeleteDogByIdCommand : IRequest<Dog>
     {
-        public DeleteDogByIdCommand(Guid dogID)
+        public DeleteDogByIdCommand(Guid dogId)
         {
-            ID = dogID;
+            Id = dogId;
         }
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
 
     }
 }
