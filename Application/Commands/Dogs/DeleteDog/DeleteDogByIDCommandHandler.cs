@@ -5,16 +5,16 @@ using Application.Commands.Dogs;
 
 namespace Application.Commands.Dogs.DeleteDog
 {
-    internal class DeleteDogByIDCommandHandler : IRequestHandler<DeleteDogByIDCommand, Dog>
+    public class DeleteDogByIdCommandHandler : IRequestHandler<DeleteDogByIdCommand, Dog>
     {
         private readonly MockDatabase _mockDatabase;
 
-        public DeleteDogByIDCommandHandler(MockDatabase mockDatabase)
+        public DeleteDogByIdCommandHandler(MockDatabase mockDatabase)
         {
             _mockDatabase = mockDatabase;
         }
 
-        public Task<Dog> Handle(DeleteDogByIDCommand request, CancellationToken cancellationToken)
+        public Task<Dog> Handle(DeleteDogByIdCommand request, CancellationToken cancellationToken)
         {
             Dog dogToDelete = _mockDatabase.Dogs.FirstOrDefault(dog => dog.Id == request.ID)!;
             _mockDatabase.Dogs.Remove(dogToDelete);
