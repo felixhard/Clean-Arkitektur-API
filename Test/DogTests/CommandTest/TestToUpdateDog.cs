@@ -5,7 +5,7 @@ using Application.Dtos.DogDto;
 
 namespace Test.DogTests.CommandTest
 {
-    public class UpdateDogTest
+    public class TestToUpdateDog
     {
         private MockDatabase _mockDatabase;
         private GetDogByIdQueryHandler _handler;

@@ -61,7 +61,7 @@ namespace API.Controllers.DogsController
         [Route("deleteDog/{deletedDogID}")]
         public async Task<IActionResult> DeleteDog(Guid deletedDogID)
         {
-            return Ok(await _mediator.Send(new DeleteDogByIDCommand(deletedDogID)));
+            return Ok(await _mediator.Send(new DeleteDogByIdCommand(deletedDogID)));
         }
 
 
