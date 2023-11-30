@@ -6,6 +6,7 @@ using Application.Dtos.AnimalDtos.CatDto;
 using Application.Queries.Cats.GetAll;
 using Application.Queries.Cats.GetById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -41,6 +42,7 @@ namespace API.Controllers.CatsController
 
         // Create a new Cat 
         [HttpPost]
+        [Authorize]
         [Route("addNewCat")]
         public async Task<IActionResult> AddCat([FromBody] CatDto newCat)
         {
@@ -49,6 +51,7 @@ namespace API.Controllers.CatsController
 
         // Update a specific Cat
         [HttpPut]
+        [Authorize]
         [Route("updateCat/{updatedCatId}")]
         public async Task<IActionResult> UpdateCat([FromBody] CatDto updatedCat, Guid updatedCatId)
         {
@@ -58,6 +61,7 @@ namespace API.Controllers.CatsController
         // IMPLEMENT DELETE !!!
 
         [HttpDelete]
+        [Authorize]
         [Route("deleteCat/{deletedCatId}")]
         public async Task<IActionResult> DeleteCat(Guid deletedCatId)
         {
