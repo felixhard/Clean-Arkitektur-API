@@ -1,11 +1,23 @@
 ﻿using Domain.Models.Dogs;
 using Domain.Models.Cats;
 using Domain.Models.Birds;
+using Domain.Models.Users;
 
 namespace Infrastructure.Database
 {
     public class MockDatabase
     {
+        public List<User> Users
+        {
+            get { return allUsers; }
+            set { allUsers = value; }
+        }
+
+        private static List<User> allUsers = new()
+        {
+            new User { Id = new Guid("08260479-52a0-4c0e-a588-274101a2c3be"), Username = "Felix", Password = "password123", Authorized = true, Role = "Admin" },
+            new User { Id = new Guid("047425eb-15a5-4310-9d25-e281ab036868"), Username = "NotAnAdmin", Password = "password123", Authorized = false, Role = "User"}
+        };
         public List<Dog> Dogs
         {
             get { return allDogs; }
