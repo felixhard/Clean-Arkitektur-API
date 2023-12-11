@@ -5,6 +5,7 @@ using Application.Commands.Cats.UpdateCat;
 using Application.Dtos.AnimalDtos.CatDto;
 using Application.Queries.Cats.GetAll;
 using Application.Queries.Cats.GetById;
+using Application.Validators.Cat;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,11 @@ namespace API.Controllers.CatsController
     public class CatsController : ControllerBase
     {
         internal readonly IMediator _mediator;
-        public CatsController(IMediator mediator)
+        internal readonly CatValidator _catValidator;
+        public CatsController(IMediator mediator, CatValidator catValidator)
         {
             _mediator = mediator;
+            _catValidator = catValidator;
         }
 
         // Get all Cats from database (API Endpoint)
@@ -28,7 +31,16 @@ namespace API.Controllers.CatsController
         [Route("getAllCats")]
         public async Task<IActionResult> GetAllCats()
         {
-            return Ok(await _mediator.Send(new GetAllCatsQuery()));
+            //Try catch
+            try
+            {
+                return Ok(await _mediator.Send(new GetAllCatsQuery()));
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
             //return Ok("GET ALL CatS");
         }
 
@@ -37,7 +49,17 @@ namespace API.Controllers.CatsController
         [Route("getCatById/{CatId}")]
         public async Task<IActionResult> GetCatById(Guid CatId)
         {
-            return Ok(await _mediator.Send(new GetCatByIdQuery(CatId)));
+            //Try catch
+            try
+            {
+                return Ok(await _mediator.Send(new GetCatByIdQuery(CatId)));
+            }
+            catch (Exception ex)
+            {
+
+
+                throw new Exception(ex.Message);
+            }
         }
 
         // Create a new Cat 
@@ -46,7 +68,24 @@ namespace API.Controllers.CatsController
         [Route("addNewCat")]
         public async Task<IActionResult> AddCat([FromBody] CatDto newCat)
         {
-            return Ok(await _mediator.Send(new AddCatCommand(newCat)));
+            //Validate Cat
+            var validatedCat = _catValidator.Validate(newCat);
+            //Error handling
+            if (!validatedCat.IsValid)
+            {
+                return BadRequest(validatedCat.Errors.ConvertAll(errors => errors.ErrorMessage));
+            }
+
+            //Try catch
+            try
+            {
+                return Ok(await _mediator.Send(new AddCatCommand(newCat)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
         }
 
         // Update a specific Cat
@@ -55,7 +94,24 @@ namespace API.Controllers.CatsController
         [Route("updateCat/{updatedCatId}")]
         public async Task<IActionResult> UpdateCat([FromBody] CatDto updatedCat, Guid updatedCatId)
         {
-            return Ok(await _mediator.Send(new UpdateCatByIdCommand(updatedCat, updatedCatId)));
+            //Validate Cat
+            var validatedCat = _catValidator.Validate(updatedCat);
+            //Error handling
+            if (!validatedCat.IsValid)
+            {
+                return BadRequest(validatedCat.Errors.ConvertAll(errors => errors.ErrorMessage));
+            }
+
+            //Try catch
+            try
+            {
+                return Ok(await _mediator.Send(new UpdateCatByIdCommand(updatedCat, updatedCatId)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
         }
 
         // IMPLEMENT DELETE !!!
@@ -65,7 +121,16 @@ namespace API.Controllers.CatsController
         [Route("deleteCat/{deletedCatId}")]
         public async Task<IActionResult> DeleteCat(Guid deletedCatId)
         {
-            return Ok(await _mediator.Send(new DeleteCatByIdCommand(deletedCatId)));
+            //Try catch
+            try
+            {
+                return Ok(await _mediator.Send(new DeleteCatByIdCommand(deletedCatId)));
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
 
