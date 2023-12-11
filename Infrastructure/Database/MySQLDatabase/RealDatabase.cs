@@ -22,7 +22,7 @@ namespace Infrastructure.Database.MySQLDatabase
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Byt Connectionstring här med så det passar lokalt
-            optionsBuilder.UseSqlServer("connectionString");
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
