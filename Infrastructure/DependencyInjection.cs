@@ -17,7 +17,7 @@ namespace Infrastructure
             services.AddDbContext<RealDatabase>(options =>
             {
                 //Byt connectionstring så det passar med lokala datorn
-                options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=true;").AddInterceptors(new CommandLoggingInterceptor());
+                options.UseSqlServer("Server=TAURUS\\SQLEXPRESS;Database=AnimalModels;Trusted_Connection=True;TrustServerCertificate=true;").AddInterceptors(new CommandLoggingInterceptor());
             });
 
             return services;

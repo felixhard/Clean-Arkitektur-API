@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,15 +46,15 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("0e6a3d24-dc51-4180-9ac3-507fcd0701b4"), "OldG" },
+                    { new Guid("0b25affc-56f1-431b-90c4-0d677173facf"), "NewG" },
                     { new Guid("12345678-1234-5678-1234-567812345671"), "TestDogForUnitTests1" },
                     { new Guid("12345678-1234-5678-1234-567812345672"), "TestDogForUnitTests2" },
                     { new Guid("12345678-1234-5678-1234-567812345673"), "TestDogForUnitTests3" },
                     { new Guid("12345678-1234-5678-1234-567812345674"), "TestDogForUnitTests4" },
-                    { new Guid("6719c058-a86c-4e6a-951b-ca394f8793e4"), "NewG" },
-                    { new Guid("b0ba8c1e-e630-4845-8618-44517d3429c6"), "Björn" },
-                    { new Guid("d553f913-1570-4e46-b2b1-1a2240a11d38"), "Patrik" },
-                    { new Guid("df4fb349-6b04-4b3e-8483-760cdb7168ac"), "Alfred" }
+                    { new Guid("7bd3481a-e6bf-49d6-bfb2-0adfb71eb732"), "OldG" },
+                    { new Guid("99e9e37d-6c1b-4a11-80be-a60ab97add4e"), "Patrik" },
+                    { new Guid("aa5e96b7-f1a7-4863-9cae-072b2b74725c"), "Alfred" },
+                    { new Guid("dd9e7e29-c2ee-48d5-bfea-0ef97b2a87d0"), "Björn" }
                 });
         }
 
