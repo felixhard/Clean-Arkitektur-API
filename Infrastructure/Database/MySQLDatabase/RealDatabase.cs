@@ -3,10 +3,10 @@ using Domain.Models.Dogs;
 using Domain.Models.Cats;
 using Domain.Models.Birds;
 using Domain.Models.Users;
+using Domain.Models.UserAnimals;
 using Infrastructure.Database.DatabaseHelpers;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+
 
 namespace Infrastructure.Database.MySQLDatabase
 {
@@ -17,12 +17,15 @@ namespace Infrastructure.Database.MySQLDatabase
 
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Dog> Dogs { get; set; }
+        public virtual DbSet<Cat> Cats { get; set; }
+        public virtual DbSet<Bird> Birds { get; set; }
+        public virtual DbSet<UserAnimalModel> UserAnimals { get; set; }
 
         // Do not really know why I have to keep this safe guard here but hell... Let it be until we find out why...
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Byt Connectionstring här med så det passar lokalt
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Server=TAURUS\\SQLEXPRESS;Database=TestingDB;Trusted_Connection=True;TrustServerCertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
