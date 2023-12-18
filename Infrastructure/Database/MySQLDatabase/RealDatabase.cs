@@ -19,7 +19,7 @@ namespace Infrastructure.Database.MySQLDatabase
         public virtual DbSet<Dog> Dogs { get; set; }
         public virtual DbSet<Cat> Cats { get; set; }
         public virtual DbSet<Bird> Birds { get; set; }
-        public virtual DbSet<UserAnimalModel> UserAnimals { get; set; }
+        //public virtual DbSet<UserAnimalModel> UserAnimals { get; set; }
 
         // Do not really know why I have to keep this safe guard here but hell... Let it be until we find out why...
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
