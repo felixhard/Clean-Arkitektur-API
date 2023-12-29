@@ -3,6 +3,7 @@ using Domain.Models.Dogs;
 using Domain.Models.Cats;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
+using Domain.Models.Users;
 
 namespace Infrastructure.Database.DatabaseHelpers
 {
@@ -11,7 +12,7 @@ namespace Infrastructure.Database.DatabaseHelpers
         public static void SeedData(ModelBuilder modelBuilder)
         {
             SeedDogs(modelBuilder);
-            SeedCats(modelBuilder);
+            SeedUsers(modelBuilder);
             // Add more methods for other entities as needed
         }
 
@@ -28,16 +29,11 @@ namespace Infrastructure.Database.DatabaseHelpers
             );
         }
 
-        private static void SeedCats(ModelBuilder modelBuilder)
+        private static void SeedUsers(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Cat>().HasData(
-            new Cat { Id = Guid.NewGuid(), Name = "Charlie", LikesToPlay = false },
-            new Cat { Id = Guid.NewGuid(), Name = "Niklas", LikesToPlay = true },
-            new Cat { Id = Guid.NewGuid(), Name = "Johan", LikesToPlay = true },
-            new Cat { Id = new Guid("00045678-1234-5678-1234-567812345671"), Name = "TestCatForUnitTests1", LikesToPlay = true },
-            new Cat { Id = new Guid("00045678-1234-5678-1234-567812345672"), Name = "TestCatForUnitTests2", LikesToPlay = true },
-            new Cat { Id = new Guid("00045678-1234-5678-1234-567812345673"), Name = "TestCatForUnitTests3", LikesToPlay = true },
-            new Cat { Id = new Guid("01223456-1234-5678-1234-567812345674"), Name = "TestCatForUnitTests4", LikesToPlay = true }
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = Guid.NewGuid(), Username = "admin", Password = "admin", Authorized = true, Role = "admin" },
+                new User { Id = new Guid("12345678-1234-5678-1234-567812345674"), Username = "testUser2", Password = "password", Authorized = true, Role = "admin" }
             );
         }
     }
