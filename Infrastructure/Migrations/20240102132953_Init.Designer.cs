@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(RealDatabase))]
-    [Migration("20231229181104_testing1")]
-    partial class testing1
+    [Migration("20240102132953_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,50 +59,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cats");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c8d5a82e-43b2-4736-9e8a-de1638287980"),
-                            LikesToPlay = false,
-                            Name = "Charlie"
-                        },
-                        new
-                        {
-                            Id = new Guid("086150ab-2d83-472a-9737-f73d2ef39dc8"),
-                            LikesToPlay = true,
-                            Name = "Niklas"
-                        },
-                        new
-                        {
-                            Id = new Guid("989a168c-6ef1-4ba0-9429-98631cda24f2"),
-                            LikesToPlay = true,
-                            Name = "Johan"
-                        },
-                        new
-                        {
-                            Id = new Guid("00045678-1234-5678-1234-567812345671"),
-                            LikesToPlay = true,
-                            Name = "TestCatForUnitTests1"
-                        },
-                        new
-                        {
-                            Id = new Guid("00045678-1234-5678-1234-567812345672"),
-                            LikesToPlay = true,
-                            Name = "TestCatForUnitTests2"
-                        },
-                        new
-                        {
-                            Id = new Guid("00045678-1234-5678-1234-567812345673"),
-                            LikesToPlay = true,
-                            Name = "TestCatForUnitTests3"
-                        },
-                        new
-                        {
-                            Id = new Guid("01223456-1234-5678-1234-567812345674"),
-                            LikesToPlay = true,
-                            Name = "TestCatForUnitTests4"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Models.Dogs.Dog", b =>
@@ -122,17 +78,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("85115885-8e94-473b-b215-8a9f5b8fc67d"),
+                            Id = new Guid("70c52e5c-12dd-4473-b305-cadaeae077b6"),
                             Name = "Björn"
                         },
                         new
                         {
-                            Id = new Guid("8b9122ca-f1ac-4fb4-9b8e-d2fca04b028b"),
+                            Id = new Guid("630d8d0b-8043-41a7-9fed-ce6ac51f0196"),
                             Name = "Patrik"
                         },
                         new
                         {
-                            Id = new Guid("dbaaa587-9d02-4240-8ae3-53287bbfd18a"),
+                            Id = new Guid("0177349a-869c-473f-802c-f46d31e4f3b2"),
                             Name = "Alfred"
                         },
                         new
@@ -174,16 +130,34 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("token")
+                    b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("974e8700-4e39-453c-8a5d-3b6f72d17cf4"),
+                            Authorized = true,
+                            Password = "admin",
+                            Role = "admin",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("12345678-1234-5678-1234-567812345674"),
+                            Authorized = true,
+                            Password = "password",
+                            Role = "admin",
+                            Username = "testUser2"
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -75,17 +75,17 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b249b3db-acd8-498c-ba53-c8c5434dde07"),
+                            Id = new Guid("a84e9cd2-9e18-4932-b7d0-d48915f2212d"),
                             Name = "Björn"
                         },
                         new
                         {
-                            Id = new Guid("1c6523f0-49dc-47ed-b1d2-f259a10c8992"),
+                            Id = new Guid("f08ca3c6-2d64-4715-b86d-59233bf4d3eb"),
                             Name = "Patrik"
                         },
                         new
                         {
-                            Id = new Guid("dbf0e21f-c423-463f-bbf6-5f7502a2047d"),
+                            Id = new Guid("a65942b7-f95c-418d-8304-85a1b65db937"),
                             Name = "Alfred"
                         },
                         new
@@ -141,7 +141,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6403be78-9916-40cd-83a2-6fcab6c04f14"),
+                            Id = new Guid("f5afe315-e3c2-4db1-872a-4e04cd136ccb"),
                             Authorized = true,
                             Password = "admin",
                             Role = "admin",
