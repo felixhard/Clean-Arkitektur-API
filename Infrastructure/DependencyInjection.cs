@@ -12,7 +12,7 @@ namespace Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddSingleton<MockDatabase>();
+            //services.AddSingleton<MockDatabase>();
             services.AddSingleton<JwtTokenGenerator>();
             services.AddDbContext<RealDatabase>(options =>
             {

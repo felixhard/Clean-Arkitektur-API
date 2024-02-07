@@ -1,39 +1,54 @@
-﻿using Application.Commands.Dogs.UpdateDog;
-using Application.Queries.Dogs.GetById;
-using Infrastructure.Database;
+﻿using Application.Commands.Animals.Dogs.UpdateDog;
+using Application.Dtos;
 using Application.Dtos.AnimalDtos.DogDto;
+using Domain.Models.Animals.Dogs;
+using FakeItEasy;
+using Infrastructure.Repositories.Animals.Dogs;
 
 namespace Test.DogTests.CommandTest
 {
+    [TestFixture]
     public class TestToUpdateDog
     {
-        private MockDatabase _mockDatabase;
-        private GetDogByIdQueryHandler _handler;
-        private UpdateDogByIdCommandHandler _UpdateDogByIdCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _handler = new GetDogByIdQueryHandler(_mockDatabase);
-            _UpdateDogByIdCommandHandler = new UpdateDogByIdCommandHandler(_mockDatabase);
-        }
         [Test]
         public async Task Test_To_Update_Dog()
         {
-            // Arrange
-            var dogId = new Guid("12345678-1234-5678-1234-567812345678");
-            DogDto dogDto = new DogDto { Name = "UpdatedDogName" };
+            //Arrange
 
-            var queryUpdateDogById = new UpdateDogByIdCommand(dogDto, dogId);
+            var guid = new Guid("ce9b91e4-08d1-4628-82c1-8ef6ec623230");
 
-            // Act
-            var result = await _UpdateDogByIdCommandHandler.Handle(queryUpdateDogById, CancellationToken.None);
+            var dog = new Dog
+            {
+                AnimalId = new Guid("ce9b91e4-08d1-4628-82c1-8ef6ec623230"),
+                Name = "Ari",
+                Breed = "English Pointer",
+                Weight = 25
+            };
 
-            // Assert
+            var dogDto = new DogDto { Name = "Max", Breed = "Persson", Weight = 25 };
+
+            var dogRepository = A.Fake<IDogRepository>();
+
+            var handler = new UpdateDogByIdCommandHandler(dogRepository);
+
+            A.CallTo(() => dogRepository.GetDogById(dog.AnimalId)).Returns(dog);
+
+            A.CallTo(() => dogRepository.UpdateDog(dog)).Returns(dog);
+
+            var command = new UpdateDogByIdCommand(dogDto, guid);
+
+            //Act
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            //Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo(dogDto.Name));
+            Assert.That(result.AnimalId, Is.EqualTo(guid));
+            Assert.That(result.Name.Equals("Max"));
+            Assert.That(result.Breed.Equals("Persson"));
+            Assert.That(result.Weight.Equals(25));
+            Assert.That(result, Is.TypeOf<Dog>());
         }
+
     }
 }

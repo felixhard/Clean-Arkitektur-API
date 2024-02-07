@@ -1,6 +1,6 @@
 ﻿using Application.Queries.Birds.GetById;
 using Infrastructure.Database;
-using Application.Commands.Birds.DeleteBird;
+using Application.Commands.Animals.Birds.DeleteBird;
 
 namespace Test.BirdTests.CommandTest
 {

@@ -1,4 +1,4 @@
-﻿using Application.Commands.Birds.UpdateBird;
+﻿using Application.Commands.Animals.Birds.UpdateBird;
 using Application.Dtos.AnimalDtos.BirdDto;
 using Domain.Models.Birds;
 using Infrastructure.Database;
