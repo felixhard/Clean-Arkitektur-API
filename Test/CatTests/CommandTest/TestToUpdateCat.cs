@@ -1,41 +1,51 @@
-﻿using Application.Queries.Cats.GetById;
-using Infrastructure.Database;
+﻿using Application.Commands.Animals.Cats.UpdateCat;
 using Application.Dtos.AnimalDtos.CatDto;
-using Application.Commands.Animals.Cats.UpdateCat;
+using Domain.Models.Animals.Cats;
+using Infrastructure.Repositories.Animals.Cats;
+using FakeItEasy;
+using Infrastructure.Database;
 
-namespace Test.CatTests.CommandTest
+namespace Test.BirdTests.CommandTest
 {
+    [TestFixture]
     public class TestToUpdateCat
     {
-        private MockDatabase _mockDatabase;
-        private GetCatByIdQueryHandler _handler;
-        private UpdateCatByIdCommandHandler _UpdateCatByIdCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _handler = new GetCatByIdQueryHandler(_mockDatabase);
-            _UpdateCatByIdCommandHandler = new UpdateCatByIdCommandHandler(_mockDatabase);
-        }
         [Test]
-        public async Task Test_To_Update_Cat()
+        public async Task Handle_Update_Correct_Cat_By_Id()
         {
-            // Arrange
-            var catId = new Guid("00045678-1234-5678-1234-567812345678");
-            CatDto catDto = new CatDto { Name = "UpdatedCatName" };
 
-            var queryUpdateCatById = new UpdateCatByIdCommand(catDto, catId);
+            var guid = new Guid("71985024-636e-4e26-b6f9-b9c8550ac738");
 
-            // Act
-            var result = await _UpdateCatByIdCommandHandler.Handle(queryUpdateCatById, CancellationToken.None);
+            var cat = new Cat
+            {
+                AnimalId = new Guid("71985024-636e-4e26-b6f9-b9c8550ac738"),
+                Name = "Billy",
+                Breed = "Skogskatt",
+                Weight = 5,
+                LikesToPlay = false
+            };
 
-            // Assert
-            //Här fick jag även lägga in en assert för bool "LikesToPlay"
+            var catDto = new CatDto { Name = "Niklas", Breed = "Huskatt", Weight = 3, LikesToPlay = false };
+
+            var catRepository = A.Fake<ICatRepository>();
+
+            var handler = new UpdateCatByIdCommandHandler(catRepository);
+
+            A.CallTo(() => catRepository.GetCatById(cat.AnimalId)).Returns(cat);
+
+            A.CallTo(() => catRepository.UpdateCat(cat)).Returns(cat);
+
+            var command = new UpdateCatByIdCommand(catDto, guid);
+
+
+            var result = await handler.Handle(command, CancellationToken.None);
+
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo(catDto.Name));
-            Assert.That(result.LikesToPlay, Is.EqualTo(catDto.LikesToPlay));
+            Assert.That(result.Name.Equals("Niklas"));
+            Assert.That(result.Breed.Equals("Huskatt"));
+            Assert.That(result.Weight.Equals(3));
+            Assert.That(result.LikesToPlay.Equals(false));
+            Assert.That(result, Is.TypeOf<Cat>());
         }
     }
 }

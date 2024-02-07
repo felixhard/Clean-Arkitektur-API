@@ -1,40 +1,38 @@
-﻿using Infrastructure.Database;
-using Application.Queries.Birds.GetById;
-using Application.Dtos.AnimalDtos.BirdDto;
-using Application.Commands.Animals.Birds.AddBird;
+﻿using Domain.Models.Animals.Birds;
+using Infrastructure.Database.MySQLDatabase;
+using Infrastructure.Repositories.Animals.Birds;
+using Moq;
 
 namespace Test.BirdTests.CommandTest
 {
-    public class AddBirdTest
+    [TestFixture]
+    internal class AddBirdTest
     {
-        private MockDatabase _mockDatabase;
-        private GetBirdByIdQueryHandler _handler;
-        private AddBirdCommandHandler _AddBirdCommandHandler;
+        private BirdRepository _birdRepository;
+        private Mock<RealDatabase> _mockRealDatabase = new Mock<RealDatabase>();
 
         [SetUp]
         public void SetUp()
         {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _handler = new GetBirdByIdQueryHandler(_mockDatabase);
-            _AddBirdCommandHandler = new AddBirdCommandHandler(_mockDatabase);
+            _mockRealDatabase.Setup(db => db.Birds.Add(It.IsAny<Bird>()));
+            _mockRealDatabase.Setup(db => db.SaveChanges());
+            _birdRepository = new BirdRepository(_mockRealDatabase.Object);
         }
-
         [Test]
-        public async Task Test_To_Add_Bird()
+        public async Task AddBird_Success()
         {
             // Arrange
-            BirdDto birdDto = new BirdDto { Name = "AddedBirdTestName" };
-
-            var query = new AddBirdCommand(birdDto);
+            var birdToAdd = new Bird() { AnimalId = Guid.NewGuid(), Name = "TestBird3", Color = "Blue" };
 
             // Act
-            var result = await _AddBirdCommandHandler.Handle(query, CancellationToken.None);
+            var addedBird = await _birdRepository.AddBird(birdToAdd);
 
             // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo(birdDto.Name));
+            Assert.That(addedBird.AnimalId, Is.EqualTo(birdToAdd.AnimalId));
+            Assert.That(addedBird.Name, Is.EqualTo(birdToAdd.Name));
+            Assert.That(addedBird, Is.Not.Null);
+            _mockRealDatabase.Verify(db => db.Birds.Add(It.IsAny<Bird>()), Times.Once);
+            _mockRealDatabase.Verify(db => db.SaveChanges(), Times.Once);
         }
-
     }
 }

@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Application.Queries.Birds.GetById
 {
-    public class GetBirdByIQueryHandler : IRequestHandler<GetBirdByIdQuery, Bird>
+    public class GetBirdByIdQueryHandler : IRequestHandler<GetBirdByIdQuery, Bird>
     {
         private readonly IBirdRepository _birdRepository;
 
-        public GetBirdByIQueryHandler(IBirdRepository birdRepository)
+        public GetBirdByIdQueryHandler(IBirdRepository birdRepository)
         {
             _birdRepository = birdRepository;
         }

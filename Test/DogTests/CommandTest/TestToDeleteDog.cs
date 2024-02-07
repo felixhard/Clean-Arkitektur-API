@@ -1,40 +1,42 @@
 ﻿using Application.Queries.Dogs.GetById;
 using Infrastructure.Database;
-using Application.Commands.Dogs.DeleteDog;
+using Application.Commands.Animals.Dogs.DeleteDog;
+using Domain.Models.Animals.Dogs;
+using Infrastructure.Repositories.Animals.Dogs;
+using FakeItEasy;
 
 namespace Test.DogTests.CommandTest
 {
+    [TestFixture]
     public class TestToDeleteDog
     {
-        private MockDatabase _mockDatabase;
-        private GetDogByIdQueryHandler _GetDogByIDQueryHandler;
-        private DeleteDogByIdCommandHandler _DeleteDogByIdCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _GetDogByIDQueryHandler = new GetDogByIdQueryHandler(_mockDatabase);
-            _DeleteDogByIdCommandHandler = new DeleteDogByIdCommandHandler(_mockDatabase);
-        }
-
         [Test]
-        public async Task Test_To_Delete_Dog()
+        public async Task Handle_DeleteDog_Corect_Id()
         {
-            // Arrange
-            var dogId = new Guid("02345678-1234-5678-1234-567812345678");
-            var queryDeleteDogById = new DeleteDogByIdCommand(dogId);
-            var queryGetDogById = new GetDogByIdQuery(dogId);
+            //Arrange
+            Guid id = new Guid("262b33a9-27fe-4322-8a5e-4c0a38fc3bb0");
+            var dog = new Dog
+            {
+                AnimalId = id,
+                Name = "Max",
+                Breed = "Golden",
+                Weight = 4
+            };
+            var dogRepository = A.Fake<IDogRepository>();
+            var handler = new DeleteDogByIdCommandHandler(dogRepository);
+            A.CallTo(() => dogRepository.DeleteDog(dog.AnimalId)).Returns(dog);
 
-            // Act
-            var result = await _DeleteDogByIdCommandHandler.Handle(queryDeleteDogById, CancellationToken.None);
-            var result2 = await _GetDogByIDQueryHandler.Handle(queryGetDogById, CancellationToken.None);
+            var command = new DeleteDogByIdCommand(dog.AnimalId);
 
-            // Assert
-            Assert.That(result2, Is.Null);
-            Assert.That(result.Id, Is.EqualTo(dogId));
+            //Act
+            var result = await handler.Handle(command, CancellationToken.None);
 
+            //Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name.Equals("Max"));
+            Assert.That(result, Is.TypeOf<Dog>());
+            Assert.That(result.AnimalId.Equals(dog.AnimalId));
+            A.CallTo(() => dogRepository.DeleteDog(dog.AnimalId)).MustHaveHappened();
         }
     }
 }

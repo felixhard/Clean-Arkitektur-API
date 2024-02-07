@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.Animals.Cats;
 using Domain.Models.Animals.Dogs;
 using Infrastructure.Database.MySQLDatabase;
 using Microsoft.EntityFrameworkCore;
@@ -28,10 +29,12 @@ namespace Infrastructure.Repositories.Animals.Dogs
                 throw new ArgumentException(ex.Message);
             }
         }
-        public async Task<Dog> DeleteDog(Dog dogToDelete)
+        public async Task<Dog> DeleteDog(Guid id)
         {
             try
             {
+                Dog dogToDelete = await GetDogById(id);
+
                 _realDatabase.Dogs.Remove(dogToDelete);
 
                 _realDatabase.SaveChanges();
@@ -41,7 +44,7 @@ namespace Infrastructure.Repositories.Animals.Dogs
             catch (Exception ex)
             {
 
-                throw new Exception($"An error occured while deleting a dog with Id {dogToDelete.AnimalId} from the database", ex);
+                throw new Exception($"An error occured while deleting a dog with Id {id} from the database", ex);
             }
         }
 
