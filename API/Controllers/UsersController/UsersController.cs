@@ -1,6 +1,10 @@
 ﻿using Application.Commands.Users.Register;
+using Application.Commands.Users.Update;
+using Application.Commands.Users.Delete;
 using Application.Dtos.UserDtos;
+using Application.Queries.Users.GetAllUsers;
 using Application.Queries.Users.GetToken;
+using Application.Queries.Users.GetUserById;
 using Application.Validators;
 using Application.Validators.User;
 using MediatR;
@@ -57,6 +61,83 @@ namespace API.Controllers.UsersController
                 //// Log the error and return an error response
                 //_logger.LogError(e, "Error registering user");
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("getAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _mediatR.Send(new GetAllUsersQuery());
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [HttpGet("getUserById/{userId}")]
+        //[Authorize]
+        public async Task<IActionResult> GetUserById(Guid userId)
+        {
+            var guidToValidate = _guidValidator.Validate(userId);
+
+            // Error handling
+            if (!guidToValidate.IsValid)
+            {
+                return BadRequest(guidToValidate.Errors.ConvertAll(errors => errors.ErrorMessage));
+            }
+
+            try
+            {
+                return Ok(await _mediatR.Send(new GetUserByIdQuery(userId)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [HttpDelete("deleteUser/{deletedUserId}")]
+        //[Authorize]
+        public async Task<IActionResult> DeleteUser(Guid deletedUserId)
+        {
+            var guidToValidate = _guidValidator.Validate(deletedUserId);
+
+            // Error handling
+            if (!guidToValidate.IsValid)
+            {
+                return BadRequest(guidToValidate.Errors.ConvertAll(errors => errors.ErrorMessage));
+            }
+
+            try
+            {
+                return Ok(await _mediatR.Send(new DeleteUserCommand(deletedUserId)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        [HttpPut("uppdateUser/{updatedUserId}")]
+        //[Authorize]
+        public async Task<IActionResult> UpdateUser([FromBody] UserCredentialsDto updatedUser, Guid updatedUserId)
+        {
+            // Validate user
+            var userToValidate = _userValidator.Validate(updatedUser);
+
+            if (!userToValidate.IsValid)
+            {
+                return BadRequest(userToValidate.Errors.ConvertAll(errors => errors.ErrorMessage));
+            }
+
+            try
+            {
+                return Ok(await _mediatR.Send(new UpdateUserCommand(updatedUser, updatedUserId)));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

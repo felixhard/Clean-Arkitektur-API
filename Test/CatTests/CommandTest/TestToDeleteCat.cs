@@ -1,6 +1,6 @@
 ﻿using Application.Queries.Cats.GetById;
 using Infrastructure.Database;
-using Application.Commands.Cats.DeleteCat;
+using Application.Commands.Animals.Cats.DeleteCat;
 
 namespace Test.CatTests.CommandTest
 {

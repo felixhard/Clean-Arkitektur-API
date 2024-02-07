@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Dtos.AnimalDtos.DogDto
+﻿namespace Application.Dtos.AnimalDtos.DogDto
 {
-    public class DogDto
+    public class DogDto : AnimalDto
     {
-        public string Name { get; set; } = string.Empty;
+        public string Breed { get; set; } = string.Empty;
+        public int Weight { get; set; }
     }
 }

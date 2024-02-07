@@ -1,21 +1,22 @@
 ﻿using Infrastructure.Database;
 using Domain.Models.Users;
 using Microsoft.Extensions.Configuration;
+using Infrastructure.Database.MySQLDatabase;
 
 public class AuthRepository
 {
     private readonly IConfiguration _configuration;
-    private readonly MockDatabase _mockDatabase;
+    private readonly RealDatabase _realDatabase;
 
-    public AuthRepository(IConfiguration configuration, MockDatabase mockDatabase)
+    public AuthRepository(IConfiguration configuration, RealDatabase realDatabase)
     {
         _configuration = configuration;
-        _mockDatabase = mockDatabase;
+        _realDatabase = realDatabase;
     }
 
     public User AuthenticateUser(string username, string password)
     {
-        var user = _mockDatabase.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+        var user = _realDatabase.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 
         if (user == null)
         {

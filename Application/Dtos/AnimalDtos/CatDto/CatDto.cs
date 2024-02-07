@@ -1,8 +1,9 @@
 ﻿namespace Application.Dtos.AnimalDtos.CatDto
 {
-    public class CatDto
+    public class CatDto : AnimalDto
     {
-        public string Name { get; set; } = string.Empty;
         public bool LikesToPlay { get; set; }
+        public string Breed { get; set; } = string.Empty;
+        public int Weight { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Database;
 using Application.Queries.Birds.GetById;
-using Application.Commands.Birds.AddBird;
 using Application.Dtos.AnimalDtos.BirdDto;
+using Application.Commands.Animals.Birds.AddBird;
 
 namespace Test.BirdTests.CommandTest
 {

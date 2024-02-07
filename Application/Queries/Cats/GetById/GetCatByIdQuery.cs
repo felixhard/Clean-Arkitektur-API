@@ -1,4 +1,4 @@
-﻿using Domain.Models.Cats;
+﻿using Domain.Models.Animals.Cats;
 using MediatR;
 
 namespace Application.Queries.Cats.GetById

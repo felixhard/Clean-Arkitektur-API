@@ -1,7 +1,7 @@
-﻿using Domain.Models.Dogs;
-using Domain.Models.Cats;
-using Domain.Models.Birds;
+﻿/*using Domain.Models.Dogs;
 using Domain.Models.Users;
+using Domain.Models.Animal.Birds;
+using Domain.Models.Animal;
 
 namespace Infrastructure.Database
 {
@@ -18,7 +18,7 @@ namespace Infrastructure.Database
             new User { Id = new Guid("08260479-52a0-4c0e-a588-274101a2c3be"), Username = "Felix", Password = "password123", Authorized = true, Role = "Admin" },
             new User { Id = new Guid("047425eb-15a5-4310-9d25-e281ab036868"), Username = "NotAnAdmin", Password = "password123", Authorized = false, Role = "User"}
         };
-        public List<Dog> Dogs
+        /*public List<Dog> Dogs
         {
             get { return allDogs; }
             set { allDogs = value; }
@@ -64,3 +64,4 @@ namespace Infrastructure.Database
         };
     }
 }
+*/

@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Database;
 using Application.Queries.Cats.GetById;
-using Application.Commands.Cats.AddCat;
 using Application.Dtos.AnimalDtos.CatDto;
+using Application.Commands.Animals.Cats.AddCat;
 
 namespace Test.CatTests.CommandTest
 {

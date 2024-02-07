@@ -1,4 +1,4 @@
-﻿using Domain.Models.Birds;
+﻿using Domain.Models.Animals.Birds;
 using MediatR;
 
 namespace Application.Queries.Birds.GetById

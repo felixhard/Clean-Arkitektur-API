@@ -1,5 +1,8 @@
 using Application;
 using Infrastructure;
+using Infrastructure.Repositories.Animals.Dogs;
+using Infrastructure.Repositories.Animals.Cats;
+using Infrastructure.Repositories.Animals.Birds;
 using Infrastructure.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -32,6 +35,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.AddTransient<IDogRepository, DogRepository>();
+builder.Services.AddTransient<ICatRepository, CatRepository>();
+builder.Services.AddTransient<IBirdRepository, BirdRepository>();
 
 
 builder.Services.AddControllers();

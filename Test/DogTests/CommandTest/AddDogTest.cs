@@ -1,40 +1,41 @@
-﻿using Infrastructure.Database;
-using Application.Queries.Dogs.GetById;
-using Application.Commands.Dogs.AddDog;
+﻿using Application.Commands.Animals.Dogs.AddDog;
 using Application.Dtos.AnimalDtos.DogDto;
+using Domain.Models.Animals.Dogs;
+using FakeItEasy;
+using Infrastructure.Repositories.Animals.Dogs;
 
 namespace Test.DogTests.CommandTest
 {
+    [TestFixture]
     public class AddDogTest
     {
-        private MockDatabase _mockDatabase;
-        private GetDogByIdQueryHandler _handler;
-        private AddDogCommandHandler _AddDogCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _handler = new GetDogByIdQueryHandler(_mockDatabase);
-            _AddDogCommandHandler = new AddDogCommandHandler(_mockDatabase);
-        }
-
         [Test]
-        public async Task Test_To_Add_Dog()
+        public async Task Test_To_Add_Dog_To_DB()
         {
-            // Arrange
-            DogDto dogDto = new DogDto { Name = "AddedDogTestName" };
+            //Arrange
+            var dog = new Dog { Name = "Krister", Breed = "Bulldog" };
 
-            var query = new AddDogCommand(dogDto);
+            var dogRepository = A.Fake<IDogRepository>();
 
-            // Act
-            var result = await _AddDogCommandHandler.Handle(query, CancellationToken.None);
+            var handler = new AddDogCommandHandler(dogRepository);
 
-            // Assert
+            A.CallTo(() => dogRepository.AddDog(dog)).Returns(dog);
+
+            var dto = new DogDto();
+
+            dto.Name = "Krister";
+            dto.Breed = "Bulldog";
+            dto.Weight = 17;
+
+            var command = new AddDogCommand(dto);
+
+            //Act
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            //Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Name, Is.EqualTo(dogDto.Name));
+            Assert.That(result.Name.Equals("Krister"));
+            Assert.That(result, Is.TypeOf<Dog>());
         }
-
     }
 }
