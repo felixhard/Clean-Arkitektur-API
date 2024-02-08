@@ -1,4 +1,4 @@
-﻿/*using Application.Dtos.AnimalUsersDto;
+﻿using Application.Dtos.AnimalUsersDto;
 using Domain.Models.AnimalUsers;
 
 
@@ -10,6 +10,6 @@ namespace Infrastructure.Repositories.AnimalUsers
         Task<AnimalUser> UpdateAnimalUser(AnimalUser animalUserToUpdate);
         Task<List<GetAllAnimalUsersDto>> GetAllAnimalUsers();
         Task<AnimalUser> GetAnimalUserByID(Guid id);
-        Task<AnimalUser> DeleteAnimalUser(AnimalUser animalUserToDelete);
+        Task<AnimalUser> DeleteAnimalUser(Guid id);
     }
-}*/
+}
