@@ -1,4 +1,5 @@
-﻿using Domain.Models.Animals.Cats;
+﻿using Domain.Models.Animals.Birds;
+using Domain.Models.Animals.Cats;
 using Infrastructure.Database.MySQLDatabase;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,10 +29,12 @@ namespace Infrastructure.Repositories.Animals.Cats
             }
         }
 
-        public async Task<Cat> DeleteCat(Cat catToDelete)
+        public async Task<Cat> DeleteCat(Guid id)
         {
             try
             {
+                Cat catToDelete = await GetCatById(id);
+
                 _realDatabase.Cats.Remove(catToDelete);
 
                 _realDatabase.SaveChanges();
@@ -41,7 +44,7 @@ namespace Infrastructure.Repositories.Animals.Cats
             catch (Exception ex)
             {
 
-                throw new Exception($"An error occured while deleting a cat with Id {catToDelete.AnimalId} from the database", ex);
+                throw new Exception($"An error occured while deleting a cat with Id {id} from the database", ex);
             }
         }
 

@@ -1,41 +1,47 @@
 ﻿using Application.Queries.Cats.GetById;
 using Infrastructure.Database;
 using Application.Commands.Animals.Cats.DeleteCat;
+using Domain.Models.Animals.Cats;
+using FakeItEasy;
+using Infrastructure.Repositories.Animals.Cats;
+using Microsoft.Extensions.Logging.Abstractions;
+using Application.Commands.Animals.Birds.DeleteBird;
+using Domain.Models.Animals.Birds;
+using Infrastructure.Repositories.Animals.Birds;
 
 namespace Test.CatTests.CommandTest
 {
+    [TestFixture]
     public class TestToDeleteCat
     {
-        private MockDatabase _mockDatabase;
-        private GetCatByIdQueryHandler _GetCatByIDQueryHandler;
-        private DeleteCatByIdCommandHandler _DeleteCatByIdCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _GetCatByIDQueryHandler = new GetCatByIdQueryHandler(_mockDatabase);
-            _DeleteCatByIdCommandHandler = new DeleteCatByIdCommandHandler(_mockDatabase);
-        }
-
         [Test]
-        public async Task Test_To_Delete_Cat()
+        public async Task Handle_DeleteCat_Corect_Id()
         {
-            // Arrange
-            //Måste här använda ett annat Id från den i GetCatByIdTests.
-            var catId = new Guid("01223456-1234-5678-1234-567812345678");
-            var queryDeleteCatById = new DeleteCatByIdCommand(catId);
-            var queryGetCatById = new GetCatByIdQuery(catId);
+            //Arrange
+            Guid id = new Guid("158a07b7-27fe-4322-8a5e-4c0a38fc3bb0");
+            var cat = new Cat
+            {
+                AnimalId = id,
+                Name = "Tom",
+                Breed = "Skogskatt",
+                Weight = 4,
+                LikesToPlay = true
+            };
+            var catRepository = A.Fake<ICatRepository>();
+            var handler = new DeleteCatByIdCommandHandler(catRepository);
+            A.CallTo(() => catRepository.DeleteCat(cat.AnimalId)).Returns(cat);
 
-            // Act
-            var result = await _DeleteCatByIdCommandHandler.Handle(queryDeleteCatById, CancellationToken.None);
-            var result2 = await _GetCatByIDQueryHandler.Handle(queryGetCatById, CancellationToken.None);
+            var command = new DeleteCatByIdCommand(cat.AnimalId);
 
-            // Assert
-            Assert.That(result2, Is.Null);
-            Assert.That(result.Id, Is.EqualTo(catId));
+            //Act
+            var result = await handler.Handle(command, CancellationToken.None);
 
+            //Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name.Equals("Tom"));
+            Assert.That(result, Is.TypeOf<Cat>());
+            Assert.That(result.AnimalId.Equals(cat.AnimalId));
+            A.CallTo(() => catRepository.DeleteCat(cat.AnimalId)).MustHaveHappened();
         }
     }
 }

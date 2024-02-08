@@ -1,40 +1,44 @@
 ﻿using Application.Queries.Birds.GetById;
 using Infrastructure.Database;
 using Application.Commands.Animals.Birds.DeleteBird;
+using Domain.Models.Animals.Birds;
+using Infrastructure.Repositories.Animals.Birds;
+using FakeItEasy;
 
 namespace Test.BirdTests.CommandTest
 {
+    [TestFixture]
     public class TestToDeleteBird
     {
-        private MockDatabase _mockDatabase;
-        private GetBirdByIdQueryHandler _GetBirdByIDQueryHandler;
-        private DeleteBirdByIdCommandHandler _DeleteBirdByIdCommandHandler;
-
-        [SetUp]
-        public void SetUp()
-        {
-            // Initialize the handler and mock database before each test
-            _mockDatabase = new MockDatabase();
-            _GetBirdByIDQueryHandler = new GetBirdByIdQueryHandler(_mockDatabase);
-            _DeleteBirdByIdCommandHandler = new DeleteBirdByIdCommandHandler(_mockDatabase);
-        }
-
         [Test]
-        public async Task Test_To_Delete_Bird()
+        public async Task Handle_DeleteBird_Corect_Id()
         {
-            // Arrange
-            var birdId = new Guid("12300078-1234-5678-1234-567812345678");
-            var queryDeleteBirdById = new DeleteBirdByIdCommand(birdId);
-            var queryGetBirdById = new GetBirdByIdQuery(birdId);
+            //Arrange
+            var bird = new Bird
+            {
+                AnimalId = Guid.NewGuid(),
+                Name = "Hawk",
+                Color = "Red",
+                CanFly = true,
+            };
 
-            // Act
-            var result = await _DeleteBirdByIdCommandHandler.Handle(queryDeleteBirdById, CancellationToken.None);
-            var result2 = await _GetBirdByIDQueryHandler.Handle(queryGetBirdById, CancellationToken.None);
+            var birdRepository = A.Fake<IBirdRepository>();
 
-            // Assert
-            Assert.That(result2, Is.Null);
-            Assert.That(result.Id, Is.EqualTo(birdId));
+            var handler = new DeleteBirdByIdCommandHandler(birdRepository);
 
+            A.CallTo(() => birdRepository.DeleteBird(bird.AnimalId)).Returns(bird);
+
+            var command = new DeleteBirdByIdCommand(bird.AnimalId);
+
+            //Act
+            var result = await handler.Handle(command, CancellationToken.None);
+
+            //Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Name.Equals("Hawk"));
+            Assert.That(result, Is.TypeOf<Bird>());
+            Assert.That(result.AnimalId.Equals(bird.AnimalId));
+            A.CallTo(() => birdRepository.DeleteBird(bird.AnimalId)).MustHaveHappened();
         }
     }
 }

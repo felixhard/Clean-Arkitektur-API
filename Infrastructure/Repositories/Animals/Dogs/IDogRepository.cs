@@ -10,6 +10,6 @@ namespace Infrastructure.Repositories.Animals.Dogs
         Task<Dog> GetDogById(Guid id);
         Task<Dog> AddDog(Dog newDog);
         Task<Dog> UpdateDog(Dog updateDog);
-        Task<Dog> DeleteDog(Dog dogToDelete);
+        Task<Dog> DeleteDog(Guid id);
     }
 }

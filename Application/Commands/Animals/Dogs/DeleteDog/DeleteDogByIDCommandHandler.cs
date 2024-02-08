@@ -14,11 +14,12 @@ namespace Application.Commands.Animals.Dogs.DeleteDog
         }
         public async Task<Dog> Handle(DeleteDogByIdCommand request, CancellationToken cancellationToken)
         {
-            Dog dogToDelete = _dogRepository.GetDogById(request.Id).Result;
-
-            var deletedDog = await _dogRepository.DeleteDog(dogToDelete);
-
-            return deletedDog;
+            Dog dogToDelete = await _dogRepository.DeleteDog(request.Id);
+            if (dogToDelete == null)
+            {
+                return null!;
+            }
+            return dogToDelete;
         }
     }
 }
