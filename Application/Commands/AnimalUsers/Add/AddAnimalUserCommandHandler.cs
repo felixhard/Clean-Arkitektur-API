@@ -1,4 +1,5 @@
-﻿/*using Domain.Models.AnimalUsers;
+﻿using Domain.Models.AnimalUsers;
+using Application.Dtos.AnimalUserDto;
 using Infrastructure.Repositories.AnimalUsers;
 using MediatR;
 
@@ -23,6 +24,9 @@ namespace Application.Commands.AnimalUsers.Add
                 UserId = request.AnimalUserDto.UserId
             };
 
-            var createdAnimalUser = await _animalUserRepository.CreateAnimalUser(animalUserToCreate);
+            var createdAnimalUser = await _animalUserRepository.AddAnimalUser(animalUserToCreate);
 
-            return createdAnimalUser;*/
+            return createdAnimalUser;
+        }
+    }
+}

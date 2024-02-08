@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using Infrastructure.Repositories.AnimalUsers;
 using Infrastructure.Repositories.Animals.Dogs;
 using Infrastructure.Repositories.Animals.Cats;
 using Infrastructure.Repositories.Animals.Birds;
@@ -35,6 +36,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IAnimalUserRepository, AnimalUserRepository>();
 
 builder.Services.AddTransient<IDogRepository, DogRepository>();
 builder.Services.AddTransient<ICatRepository, CatRepository>();
