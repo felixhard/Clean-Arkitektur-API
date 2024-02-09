@@ -98,7 +98,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a0e458c8-65e0-4558-b2fd-05e5d6b47f59"),
+                            Id = new Guid("2e77d588-08bd-4bb5-82ac-a303d0c75f7a"),
                             Authorized = true,
                             Password = "admin",
                             Role = "admin",
@@ -130,70 +130,70 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AnimalId = new Guid("c3ba763b-a5c9-4f4d-984e-ebb8a5e0e86b"),
+                            AnimalId = new Guid("2858606a-a8a5-4730-9a75-e8811cc6343a"),
                             Name = "Chip",
                             CanFly = false,
                             Color = "Red"
                         },
                         new
                         {
-                            AnimalId = new Guid("e555ef02-794d-4acb-8fb4-0915a841744f"),
+                            AnimalId = new Guid("19d0adee-cf54-4089-aaeb-e9ea3136126c"),
                             Name = "Paulie",
                             CanFly = true,
                             Color = "Blue"
                         },
                         new
                         {
-                            AnimalId = new Guid("b70d4b9d-38e2-4cfa-b79a-5385fb18019c"),
+                            AnimalId = new Guid("88a072db-4121-4096-b927-573f34f359e2"),
                             Name = "Polly",
                             CanFly = true,
                             Color = "Orange"
                         },
                         new
                         {
-                            AnimalId = new Guid("7bdab1b8-c0e8-436a-9090-2b250b13f3ad"),
+                            AnimalId = new Guid("0eb630e5-81d0-4fed-a2a1-0a05f9428879"),
                             Name = "Ace",
                             CanFly = false,
                             Color = "Red"
                         },
                         new
                         {
-                            AnimalId = new Guid("5ecc1266-e301-4eee-83d9-da86adc7c4ef"),
+                            AnimalId = new Guid("4fcbcee6-2299-42d2-8030-51d65b61b99f"),
                             Name = "Apollo",
                             CanFly = false,
                             Color = "Green"
                         },
                         new
                         {
-                            AnimalId = new Guid("64fd742c-4baf-4d86-a9f7-afed65dd7796"),
+                            AnimalId = new Guid("1ab0c153-8d3a-4df4-b120-3362b3d06aac"),
                             Name = "Daffy",
                             CanFly = true,
                             Color = "Green"
                         },
                         new
                         {
-                            AnimalId = new Guid("4e8e50e5-8587-4c89-8f19-011e9c810f18"),
+                            AnimalId = new Guid("3cfafaaa-dbe2-473f-8ad6-204cc1849589"),
                             Name = "Blue",
                             CanFly = true,
                             Color = "Purple"
                         },
                         new
                         {
-                            AnimalId = new Guid("407e443f-1eca-403b-8609-779a35b51368"),
+                            AnimalId = new Guid("d23ac2e1-b253-4e93-8dc0-9a6a36a9e211"),
                             Name = "Skye",
                             CanFly = false,
                             Color = "Yellow"
                         },
                         new
                         {
-                            AnimalId = new Guid("6cf7af72-ebdb-4374-99e6-4e621f5416b9"),
+                            AnimalId = new Guid("eee7247c-005c-4d0c-a884-69741a775155"),
                             Name = "Jay",
                             CanFly = true,
                             Color = "Purple"
                         },
                         new
                         {
-                            AnimalId = new Guid("103b423a-9ea0-4e8a-ae4b-4c3ada5c6cb7"),
+                            AnimalId = new Guid("e35dc0b5-3023-4431-985f-e5cb1e76e735"),
                             Name = "Maverick",
                             CanFly = true,
                             Color = "Yellow"
@@ -219,7 +219,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AnimalId = new Guid("3ac8b69e-7e1c-4ad9-98c4-2d46511f9f87"),
+                            AnimalId = new Guid("afb2d71a-9591-4e22-9a2d-b3ef0181d460"),
                             Name = "Jack",
                             Breed = "Siames",
                             LikesToPlay = true,
@@ -227,7 +227,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("04966dde-285b-4687-932e-d4ae2d06cfba"),
+                            AnimalId = new Guid("3874e855-83f3-4000-91ee-4c89aaa7dcc9"),
                             Name = "Signe",
                             Breed = "Ragdoll",
                             LikesToPlay = false,
@@ -235,7 +235,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("a414c39b-2067-49ef-9958-23bd9aa480b1"),
+                            AnimalId = new Guid("7b3760e2-2314-4466-a458-f710b1eb6fae"),
                             Name = "Rose",
                             Breed = "Bengal",
                             LikesToPlay = false,
@@ -243,7 +243,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("c0962cf6-53b7-4f4c-83ff-18095421b545"),
+                            AnimalId = new Guid("be23b8a6-6244-4327-a745-cbd420b72ed5"),
                             Name = "Mittens",
                             Breed = "Burma",
                             LikesToPlay = true,
@@ -251,7 +251,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("b46b42df-a055-475a-b5e0-cde15c5f3777"),
+                            AnimalId = new Guid("9c9ee981-39d8-4265-b8f1-54fbf48610f6"),
                             Name = "Fred",
                             Breed = "Brittiskt korthår",
                             LikesToPlay = true,
@@ -259,7 +259,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("e031ea3a-296d-4f26-9638-1b79c0f9f461"),
+                            AnimalId = new Guid("e915a651-1b38-4101-bd3d-556aeb9f1476"),
                             Name = "Molly",
                             Breed = "Ragdoll",
                             LikesToPlay = false,
@@ -267,7 +267,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("054ca817-19bb-4133-a03e-524cd9e372af"),
+                            AnimalId = new Guid("a979caf0-c2eb-47da-9062-b78cd54d88e8"),
                             Name = "Charlie",
                             Breed = "Perser",
                             LikesToPlay = true,
@@ -275,7 +275,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("d375bade-4097-4c49-866d-66eeb34f716e"),
+                            AnimalId = new Guid("c12b8f10-6fe4-420e-93cc-a03ae3e2fb7e"),
                             Name = "Oscar",
                             Breed = "Burma",
                             LikesToPlay = true,
@@ -283,7 +283,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("e552a0f0-8154-4851-80b7-95fcb760f7ca"),
+                            AnimalId = new Guid("d3964e80-114c-476d-acf6-59a52f1bfaa7"),
                             Name = "Tiger",
                             Breed = "Perser",
                             LikesToPlay = false,
@@ -291,7 +291,7 @@ namespace Infrastructure.Migrations
                         },
                         new
                         {
-                            AnimalId = new Guid("5a1ceb77-ad2f-41d4-80da-c59501674056"),
+                            AnimalId = new Guid("65193620-8452-4785-b77c-6bda6fd54778"),
                             Name = "Simba",
                             Breed = "Bengal",
                             LikesToPlay = true,
@@ -324,70 +324,70 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            AnimalId = new Guid("c168a5e4-e5e3-40ae-b90f-c1279c471949"),
+                            AnimalId = new Guid("78ab35a1-23ac-4111-9a9e-c19ba5b545fc"),
                             Name = "OldG",
                             Breed = "Labrador",
                             Weight = 10
                         },
                         new
                         {
-                            AnimalId = new Guid("e635a129-8e70-46e8-9af4-55b1f9008ade"),
+                            AnimalId = new Guid("24f49422-7783-499b-a42e-d2628f9c24e9"),
                             Name = "NewG",
                             Breed = "Bulldog",
                             Weight = 4
                         },
                         new
                         {
-                            AnimalId = new Guid("5e5969fd-0a2b-41a8-9a96-58b8b616a007"),
+                            AnimalId = new Guid("1ca256b7-a6c0-4ed9-a079-b61f8397dce8"),
                             Name = "Björn",
                             Breed = "Schäfer",
                             Weight = 12
                         },
                         new
                         {
-                            AnimalId = new Guid("f2639953-b64a-49b2-a5cb-c345fd242103"),
+                            AnimalId = new Guid("42ebe9ad-de55-4f32-ab6a-6d2a3a08aac5"),
                             Name = "Patrik",
                             Breed = "Golden retriever",
                             Weight = 13
                         },
                         new
                         {
-                            AnimalId = new Guid("22e95b1f-e16e-4723-8437-92a650db5eec"),
+                            AnimalId = new Guid("ef974ade-40d6-4fe3-b98c-49d6034d2b78"),
                             Name = "Alfred",
                             Breed = "Pudel",
                             Weight = 6
                         },
                         new
                         {
-                            AnimalId = new Guid("66278b9c-9710-4c69-96f5-e087581a4472"),
+                            AnimalId = new Guid("dcb8296e-56e7-4470-b8c6-4d17042468e9"),
                             Name = "Stanley",
                             Breed = "Labrador",
                             Weight = 6
                         },
                         new
                         {
-                            AnimalId = new Guid("3f7a5ad2-1707-4b5d-bdef-115bc95a298b"),
+                            AnimalId = new Guid("d2af9862-065c-4093-b0ec-0a939f8cc8b3"),
                             Name = "Rufus",
                             Breed = "Rottweiler",
                             Weight = 8
                         },
                         new
                         {
-                            AnimalId = new Guid("e8e166d7-28ce-464c-aa14-24435ca17e2e"),
+                            AnimalId = new Guid("81a609b1-ab26-41fe-b9f4-e8b58b293f9d"),
                             Name = "Ludde",
                             Breed = "Boxer",
                             Weight = 9
                         },
                         new
                         {
-                            AnimalId = new Guid("63bfd80d-ebc0-45b9-b0f2-9531411a4f09"),
+                            AnimalId = new Guid("d86cfc81-17ec-4284-8c5f-8cb5c0c45403"),
                             Name = "Felix",
                             Breed = "Labrador",
                             Weight = 12
                         },
                         new
                         {
-                            AnimalId = new Guid("80e7fbe3-e82d-4c03-8cce-aef984f69497"),
+                            AnimalId = new Guid("36b4abf1-97ff-45f6-88d4-215f827ad85e"),
                             Name = "Peppe",
                             Breed = "Boxer",
                             Weight = 8

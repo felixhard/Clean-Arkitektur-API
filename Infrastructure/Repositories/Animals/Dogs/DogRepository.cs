@@ -83,29 +83,19 @@ namespace Infrastructure.Repositories.Animals.Dogs
 
         public async Task<List<Dog>> GetDogsByBreedAndWeight(string breed, int? weight)
         {
-            try
+            var dogsQuery = _realDatabase.Dogs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(breed))
             {
-                var dogsQuery = _realDatabase.Dogs.AsQueryable();
-
-                if (!string.IsNullOrEmpty(breed))
-                {
-                    dogsQuery = dogsQuery.Where(dog => dog.Breed == breed);
-                }
-
-                if (weight.HasValue)
-                {
-                    dogsQuery = dogsQuery.Where(dog => dog.Weight >= weight);
-                }
-
-                var dogs = await dogsQuery.OrderByDescending(dog => dog.Weight).ToListAsync();
-
-                return dogs;
+                dogsQuery = dogsQuery.Where(dog => dog.Breed == breed);
             }
-            catch (Exception ex)
+
+            if (weight.HasValue)
             {
-
-                throw new Exception($"An error occurred while getting dogs of {breed} breed and weight from the database", ex);
+                dogsQuery = dogsQuery.Where(dog => dog.Weight == weight);
             }
+
+            return await dogsQuery.ToListAsync();
         }
 
 

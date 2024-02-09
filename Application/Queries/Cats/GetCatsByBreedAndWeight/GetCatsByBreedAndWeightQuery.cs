@@ -5,12 +5,8 @@ namespace Application.Queries.Cats.GetByBreedAndWeight
 {
     public class GetCatsByBreedAndWeightQuery : IRequest<List<Cat>>
     {
-        public int? Weight { get; }
-        public string Breed { get; }
-        public GetCatsByBreedAndWeightQuery(int? weight, string breed)
-        {
-            Weight = weight;
-            Breed = breed;
-        }
+        public int? Weight { get; set; }
+        public string Breed { get; set; }
+
     }
 }

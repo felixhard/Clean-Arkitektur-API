@@ -3,6 +3,7 @@ using Application.Commands.Animals.Birds.DeleteBird;
 using Application.Commands.Animals.Birds.UpdateBird;
 using Application.Dtos.AnimalDtos.BirdDto;
 using Application.Queries.Birds.GetAll;
+using Application.Queries.Birds.GetBirdsByColor;
 using Application.Queries.Birds.GetById;
 using Application.Validators.Bird;
 using MediatR;
@@ -84,6 +85,21 @@ namespace API.Controllers.BirdsController
             {
                 throw new Exception(ex.Message);
 
+            }
+        }
+
+        [HttpGet]
+        [Route("getBirdsByColor/{color}")]
+        public async Task<IActionResult> GetBirdsByColor(string color)
+        {
+            try
+            {
+                var birds = await _mediator.Send(new GetBirdsByColorQuery { Color = color });
+                return Ok(birds);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Servor Error");
             }
         }
 
