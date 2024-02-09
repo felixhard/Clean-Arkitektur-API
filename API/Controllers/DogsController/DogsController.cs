@@ -3,8 +3,10 @@ using Application.Commands.Animals.Dogs.DeleteDog;
 using Application.Commands.Animals.Dogs.UpdateDog;
 using Application.Dtos.AnimalDtos.DogDto;
 using Application.Queries.Dogs.GetAll;
+using Application.Queries.Dogs.GetByBreedAndWeight;
 using Application.Queries.Dogs.GetById;
 using Application.Validators.Dog;
+using Domain.Models.Animals.Dogs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +90,23 @@ namespace API.Controllers.DogsController
             }
 
 
+        }
+        [HttpGet]
+        [Route("getDogsByBreedAndWeight")]
+        public async Task<ActionResult<List<Dog>>> GetDogsByBreedAndWeight(
+            [FromQuery] string breed,
+            [FromQuery] int? weight)
+        {
+            try
+            {
+                var query = new GetDogsByBreedAndWeightQuery { Breed = breed, Weight = weight };
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while getting dogs of {breed} breed and weight from the database. Error details: {ex.Message}");
+            }
         }
 
         // Update a specific dog

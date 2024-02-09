@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Animals.Cats.AddCat;
 using Application.Commands.Animals.Cats.UpdateCat;
 using Application.Commands.Animals.Cats.DeleteCat;
+using Application.Queries.Cats.GetByBreedAndWeight;
 using Application.Dtos.AnimalDtos.CatDto;
 using Application.Queries.Cats.GetAll;
 using Application.Queries.Cats.GetById;
@@ -8,6 +9,7 @@ using Application.Validators.Cat;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Domain.Models.Animals.Cats;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -110,6 +112,23 @@ namespace API.Controllers.CatsController
             {
                 throw new Exception(ex.Message);
 
+            }
+        }
+        [HttpGet]
+        [Route("getCatsByBreedAndWeight")]
+        public async Task<ActionResult<List<Cat>>> GetCatsByBreedAndWeight(
+    [FromQuery] string breed,
+    [FromQuery] int? weight)
+        {
+            try
+            {
+                var query = new GetCatsByBreedAndWeightQuery { Breed = breed, Weight = weight };
+                var result = await _mediator.Send(query);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while getting cats of {breed} breed and weight from the database. Error details: {ex.Message}");
             }
         }
 

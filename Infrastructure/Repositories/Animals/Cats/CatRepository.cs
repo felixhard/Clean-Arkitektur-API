@@ -1,17 +1,22 @@
 ﻿using Domain.Models.Animals.Birds;
 using Domain.Models.Animals.Cats;
 using Infrastructure.Database.MySQLDatabase;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Repositories.Animals.Cats
 {
     public class CatRepository : ICatRepository
     {
         private readonly RealDatabase _realDatabase;
+        private readonly ILogger _logger;
 
         public CatRepository(RealDatabase realDatabase)
         {
             _realDatabase = realDatabase;
+            _logger = Log.ForContext<CatRepository>();
         }
 
         public async Task<Cat> AddCat(Cat catToAdd)
@@ -83,30 +88,21 @@ namespace Infrastructure.Repositories.Animals.Cats
 
         public async Task<List<Cat>> GetCatsByBreedAndWeight(string breed, int? weight)
         {
-            try
+            var catsQuery = _realDatabase.Cats.AsQueryable();
+
+            if (!string.IsNullOrEmpty(breed))
             {
-                var catsQuery = _realDatabase.Cats.AsQueryable();
-
-                if (!string.IsNullOrEmpty(breed))
-                {
-                    catsQuery = catsQuery.Where(cat => cat.Breed == breed);
-                }
-
-                if (weight.HasValue)
-                {
-                    catsQuery = catsQuery.Where(cat => cat.Weight >= weight);
-                }
-
-                var cats = await catsQuery.OrderByDescending(cat => cat.Weight).ToListAsync();
-
-                return cats;
+                catsQuery = catsQuery.Where(cat => cat.Breed == breed);
             }
-            catch (Exception ex)
+
+            if (weight.HasValue)
             {
-
-                throw new Exception($"An error occurred while getting cats of {breed} breed and weight from the database", ex);
+                catsQuery = catsQuery.Where(cat => cat.Weight == weight);
             }
+
+            return await catsQuery.ToListAsync();
         }
+
         public Task<Cat> UpdateCat(Cat updateCat)
         {
             try

@@ -4,7 +4,6 @@ using FakeItEasy;
 using NUnit.Framework;
 using Infrastructure.Repositories.Animals.Dogs;
 
-
 namespace Test.DogTests.QueryTest
 {
     public class GetDogsByBreedAndWeightTest
@@ -25,30 +24,35 @@ namespace Test.DogTests.QueryTest
 
             var dogRepository = A.Fake<IDogRepository>();
             var handler = new GetDogsByBreedAndWeightQueryHandler(dogRepository);
-            var request = new GetDogsByBreedAndWeightQuery(25, "English Pointer");
+            var request = new GetDogsByBreedAndWeightQuery { Weight = 25, Breed = "English Pointer" };
 
-            A.CallTo(() => dogRepository.GetDogsByBreedAndWeight(A<string>._, A<int?>._)).Returns(
-               fakeDogsData.Where(b => b.Weight >= 25).Where(c => c.Breed == "English Pointer").ToList()
-           );
+            A.CallTo(() => dogRepository.GetDogsByBreedAndWeight(
+                    A<string>.That.Matches(breed => breed == "English Pointer"),
+                    A<int?>.That.Matches(weight => weight == 25)
+                ))
+                .Returns(fakeDogsData.Where(b => b.Weight >= 25 && b.Breed == "English Pointer").ToList());
 
             // Act
             var result = await handler.Handle(request, CancellationToken.None);
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Count, Is.EqualTo(3)); // Check if 3 dogs are returned for the specified breed and weight
+            Assert.That(result.Count, Is.EqualTo(3));
             Assert.That(result, Is.TypeOf<List<Dog>>());
-
         }
+
         [Test]
         public async Task Handle_Returns_Empty_List_When_No_Dogs_Found()
         {
             // Arrange
             var dogRepository = A.Fake<IDogRepository>();
             var handler = new GetDogsByBreedAndWeightQueryHandler(dogRepository);
-            var request = new GetDogsByBreedAndWeightQuery(25, "English Pointer");
+            var request = new GetDogsByBreedAndWeightQuery { Weight = 25, Breed = "English Pointer" };
 
-            A.CallTo(() => dogRepository.GetDogsByBreedAndWeight(A<string>._, A<int?>._))
+            A.CallTo(() => dogRepository.GetDogsByBreedAndWeight(
+                    A<string>.That.Matches(breed => breed == "English Pointer"),
+                    A<int?>.That.Matches(weight => weight == 25)
+                ))
                 .Returns(new List<Dog>());
 
             // Act
@@ -56,7 +60,7 @@ namespace Test.DogTests.QueryTest
 
             // Assert
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Count, Is.EqualTo(0)); // Ensure an empty list is returned when no dogs are found
+            Assert.That(result.Count, Is.EqualTo(0));
         }
     }
 }
